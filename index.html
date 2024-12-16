@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>库存管理</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+            line-height: 1.2;
+            /* 调整文本行高，让内容更紧凑 */
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"] {
+            padding: 5px;
+            margin-bottom: 5px;
+        }
+
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        /* 调整各列宽度的样式 */
+        table th:nth-of-type(1),
+        table td:nth-of-type(1) {
+            width: 150px;
+            /* 商品编号列宽度 */
+        }
+
+        table th:nth-of-type(2),
+        table td:nth-of-type(2) {
+            width: 200px;
+            /* 商品名称列宽度 */
+        }
+
+        table th:nth-of-type(3),
+        table td:nth-of-type(3) {
+            width: 120px;
+            /* 库存数量列宽度 */
+        }
+
+        table th:nth-of-type(4),
+        table td:nth-of-type(4) {
+            width: 180px;
+            /* 规格列宽度 */
+        }
+
+        table th:nth-of-type(5),
+        table td:nth-of-type(5) {
+            width: 400px;
+            /* 操作列宽度 */
+        }
+
+        table tr {
+            height: 30px;
+            /* 调整表格行高，让每一行整体变低 */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loginSection">
+        <label for="password">密码：</label>
+        <input type="password" id="password" placeholder="请输入密码">
+        <button onclick="login()">登录</button>
+    </div>
+    <h1>库存管理</h1>
+    <div id="addProductSection" style="display: none;">
+        <label for="productId">商品编号：</label>
+        <input type="text" id="productId" placeholder="请输入编号">
+        <label for="productName">商品名称：</label>
+        <input type="text" id="productName" placeholder="请输入名称">
+        <label for="productQuantity">库存数量：</label>
+        <input type="number" id="productQuantity" placeholder="请输入数量">
+        <label for="productSpecification">规格：</label>
+        <input type="text" id="productSpecification" placeholder="请输入规格">
+        <button onclick="addProduct()">添加商品</button>
+        <button onclick="sortProductsByName()">按名称排序</button>
+        <button onclick="sortProductsByQuantity()">按数量排序</button>
+    </div>
+    <table id="inventoryTable" style="display: none;">
+        <thead>
+            <tr>
+                <th>商品编号</th>
+                <th>商品名称</th>
+                <th>库存数量</th>
+                <th>规格</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 初始数据示例，后续可动态添加更多 -->
+            <tr>
+                <td>
+                    <button onclick="editQuantity('minus', this)">减</button>
+                    <button onclick="editQuantity('plus', this)">加</button>
+                    <button onclick="editProduct(this)">修改商品信息</button>
+                    <button onclick="deleteProduct(this)">删除商品</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button onclick="editQuantity('minus', this)">减</button>
+                    <button onclick="editQuantity('plus', this)">加</button>
+                    <button onclick="editProduct(this)">修改商品信息</button>
+                    <button onclick="deleteProduct(this)">删除商品</button>
+                </td>
+            </tr>
+            <!-- 可以继续添加更多商品行 -->
+        </tbody>
+    </table>
+    <script src="script.js"></script>
+</body>
+
+</html>
