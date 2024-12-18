@@ -50,7 +50,7 @@ function editQuantity(operation, button) {
         if (operation === 'plus') {
             newQuantity = currentQuantity + changeValue;
         } else if (operation ==='minus') {
-            newQuantity = currentQuantity - changeValue;
+            newQuantity = Math.max(0, currentQuantity - changeValue);
         }
         const index = inventoryData.findIndex(item => item.id === productId);
         inventoryData[index].quantity = newQuantity;
@@ -128,6 +128,11 @@ function saveDataToFile(callback) {
             console.error('数据保存失败');
         }
     };
+    xhr.onerror = function () {
+        console.log('读取文件时发生错误:', this.statusText);
+        inventoryData = [];
+        updateTable();
+    };
     xhr.send(jsonData);
 }
 
@@ -151,7 +156,7 @@ function loadDataFromFile() {
         }
     };
     xhr.onerror = function () {
-        console.log('读取文件时发生错误');
+        console.log('读取文件时发生错误:', this.statusText);
         inventoryData = [];
         updateTable();
     }
