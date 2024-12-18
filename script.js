@@ -50,7 +50,7 @@ function editQuantity(operation, button) {
         if (operation === 'plus') {
             newQuantity = currentQuantity + changeValue;
         } else if (operation ==='minus') {
-            newQuantity = Math.max(0, currentQuantity - changeValue);
+            newQuantity = currentQuantity - changeValue;
         }
         const index = inventoryData.findIndex(item => item.id === productId);
         inventoryData[index].quantity = newQuantity;
@@ -116,7 +116,7 @@ function updateTable() {
 function saveDataToFile(callback) {
     const jsonData = JSON.stringify(inventoryData);
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', 'save.php', true);
+    xhr.open('POST','save.php', true);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onload = function () {
         if (this.status === 200) {
@@ -128,17 +128,13 @@ function saveDataToFile(callback) {
             console.error('数据保存失败');
         }
     };
-    xhr.onerror = function () {
-        console.log('读取文件时发生错误:', this.statusText);
-        inventoryData = [];
-        updateTable();
-    };
     xhr.send(jsonData);
 }
 
 function loadDataFromFile() {
     const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'inventoryData.json', true);
+    // 在请求URL中添加随机参数，避免缓存
+    xhr.open('GET', 'inventoryData.json?' + Math.random(), true);
     xhr.onload = function () {
         if (this.status === 200) {
             try {
@@ -156,7 +152,7 @@ function loadDataFromFile() {
         }
     };
     xhr.onerror = function () {
-        console.log('读取文件时发生错误:', this.statusText);
+        console.log('读取文件时发生错误');
         inventoryData = [];
         updateTable();
     }
